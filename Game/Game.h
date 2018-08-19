@@ -6,6 +6,7 @@
 
 //Game subclasses
 #include "Blockspawner/Blockspawner.h"
+#include "Player/Player.h"
 
 class Game
 {
@@ -27,4 +28,5 @@ class Game
 
         //Game classes
         Blockspawner _blocksp;
+        Player _player;
 };

@@ -6,17 +6,11 @@ Game::Game()
     _gameWindow.create(sf::VideoMode(1920, 1080), "LeapCurve");
     _gameWindow.setFramerateLimit(60);
 
-    //Connect leap motion controller
-    Leap::Controller _leapController;
-    while (!_leapController.isConnected())
-    {
-        std::cout << "Waiting for connection..." << std::endl;
-        sf::sleep(sf::seconds(1.0f));
-    }
-    std::cout << "Connected!" << std::endl;
+    //Create player class
+    _player.Create(&_gameWindow);
 
     //Create blockspawner class
-    _blocksp.Create();
+    _blocksp.Create(&_gameWindow);
 }
 
 void Game::Run()
@@ -52,6 +46,7 @@ void Game::Update()
 {
     //Update the game
     _blocksp.Update();
+    _player.Update();
 }
 
 void Game::Render()
@@ -59,7 +54,8 @@ void Game::Render()
     _gameWindow.clear();
 
     //Render the whole game
-    _blocksp.Render(&_gameWindow);
+    _blocksp.Render();
+    _player.Render();
 
     _gameWindow.display();
 }
