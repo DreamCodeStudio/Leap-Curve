@@ -35,6 +35,41 @@ void Blockspawner::Render()
     }
 }
 
+bool Blockspawner::CheckCollision(sf::CircleShape player)
+{
+    //Check if a collision appears
+    for (unsigned int i = 0; i < _blocks.size(); i++)
+    {
+        if (_blocks[i]->getGlobalBounds().intersects(player.getGlobalBounds()))
+        {
+            //Collision detected!
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void Blockspawner::Reset()
+{
+    //Delete every block
+    for (unsigned int i = 0; i < _blocks.size(); i++)
+    {
+        delete _blocks[i];
+    }
+
+    //Clear vector
+    _blocks.clear();
+
+    //Set start values
+    _position = 300;
+
+    //Spawn first 3 blocks
+    this->SpawnBlock();
+    this->SpawnBlock();
+    this->SpawnBlock();    
+}
+
 /* ############### Private ############### */
 void Blockspawner::SpawnBlock()
 {
@@ -63,6 +98,7 @@ void Blockspawner::RemoveOldBlocks()
             delete _blocks[i];
             _blocks.erase(_blocks.begin() + i, _blocks.begin() + i + 1);
             i = 0;
+            std::cout << "Removed block!" << std::endl;
         }
     }
-}
+} 

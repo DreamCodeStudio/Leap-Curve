@@ -11,6 +11,9 @@ class Blockspawner
         void Update();
         void Render();
 
+        bool CheckCollision(sf::CircleShape player);
+        void Reset();
+
     private:
 
         void SpawnBlock();

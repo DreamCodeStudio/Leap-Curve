@@ -13,6 +13,9 @@ class Player
         void Update();
         void Render();
 
+        void Reset();
+        sf::CircleShape GetPlayerPoint();
+
     private:
 
         void CenterView();

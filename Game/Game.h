@@ -29,4 +29,7 @@ class Game
         //Game classes
         Blockspawner _blocksp;
         Player _player;
+
+        bool _gameOver;
+        
 };

@@ -11,14 +11,30 @@ Game::Game()
 
     //Create blockspawner class
     _blocksp.Create(&_gameWindow);
+
+    //Set start value
+    _gameOver = false;
 }
 
 void Game::Run()
 {
     //Update and render the whole game
     this->HandleEvents();
-    this->Update();
-    this->Render();
+
+    if (_gameOver == false)
+    {
+        this->Update();
+        this->Render();
+    }
+    else
+    {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        {
+            _gameOver = false;
+            _player.Reset();
+            _blocksp.Reset();
+        }
+    }
 }
 
 bool Game::IsOpen()
@@ -47,6 +63,12 @@ void Game::Update()
     //Update the game
     _blocksp.Update();
     _player.Update();
+
+    if (_blocksp.CheckCollision(_player.GetPlayerPoint()))
+    {
+        std::cout << "Collision detected!" << std::endl;
+        _gameOver = true;
+    }
 }
 
 void Game::Render()

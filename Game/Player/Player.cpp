@@ -36,11 +36,11 @@ void Player::Update()
     //The hand position should always be between 0 and 1080
     if (yposition < 0)
     {
-        yposition = 0;
+        yposition = 5;
     }
     if (yposition > 1080)
     {
-        yposition = 1080;
+        yposition = 1075;
     }
     
     //Draw a point every frame at the current position and interpolate 4 points 
@@ -74,6 +74,35 @@ void Player::Render()
     {
         _gameWindow->draw(*_line[i]);
     }
+}
+
+void Player::Reset()
+{
+    //Delete all drawn points
+    for (unsigned int i = 0; i < _line.size(); i++)
+    {
+        delete _line[i];
+    }
+
+    //Clear the vector
+    _line.clear();
+
+    //Set start position
+    _position = 50;
+
+    //Add start point
+    _line.push_back(new sf::CircleShape);
+    _line[_line.size() - 1]->setRadius(1);
+    _line[_line.size() - 1]->setFillColor(sf::Color(255, 255, 255));
+    _line[_line.size() - 1]->setPosition(sf::Vector2f(50, 500));
+
+    this->CenterView();
+}
+
+sf::CircleShape Player::GetPlayerPoint()
+{
+    //Return the latest point
+    return *_line[_line.size() - 1];
 }
 
 /* ############### Private ############## */
