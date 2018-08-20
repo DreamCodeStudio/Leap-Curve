@@ -12,6 +12,9 @@ Game::Game()
     //Create blockspawner class
     _blocksp.Create(&_gameWindow);
 
+    //Create score counter
+    _score.Create(&_gameWindow);
+
     //Set start value
     _gameOver = false;
 }
@@ -63,6 +66,7 @@ void Game::Update()
     //Update the game
     _blocksp.Update();
     _player.Update();
+    _score.Update();
 
     if (_blocksp.CheckCollision(_player.GetPlayerPoint()))
     {
@@ -78,6 +82,7 @@ void Game::Render()
     //Render the whole game
     _blocksp.Render();
     _player.Render();
+    _score.Render();
 
     _gameWindow.display();
 }

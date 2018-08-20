@@ -7,6 +7,7 @@
 //Game subclasses
 #include "Blockspawner/Blockspawner.h"
 #include "Player/Player.h"
+#include "ScoreCounter/ScoreCounter.h"
 
 class Game
 {
@@ -29,6 +30,7 @@ class Game
         //Game classes
         Blockspawner _blocksp;
         Player _player;
+        ScoreCounter _score;
 
         bool _gameOver;
         
