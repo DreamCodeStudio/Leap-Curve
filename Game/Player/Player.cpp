@@ -22,6 +22,10 @@ void Player::Create(sf::RenderWindow *gameWindow)
     _line[_line.size() - 1]->setRadius(1);
     _line[_line.size() - 1]->setFillColor(sf::Color(255, 255, 255));
     _line[_line.size() - 1]->setPosition(sf::Vector2f(50, 500));
+
+    //Set draw color
+    _drawColor = sf::Color(255, 255, 255);
+    srand(time(NULL)); //For random numbers
 }
 
 void Player::Update()
@@ -54,7 +58,7 @@ void Player::Update()
     {
         _line.push_back(new sf::CircleShape);
         _line[_line.size() - 1]->setRadius(1);
-        _line[_line.size() - 1]->setFillColor(sf::Color(255, 255, 255));
+        _line[_line.size() - 1]->setFillColor(_drawColor);
         _line[_line.size() - 1]->setPosition(sf::Vector2f(previousePoint->getPosition().x + xdelta * i, 
                                                           previousePoint->getPosition().y + ydelta * i));
     }
@@ -65,6 +69,8 @@ void Player::Update()
 
     //Remove old lines
     this->RemoveOldLine();
+
+    this->UpdateColor();
 }
 
 void Player::Render()
@@ -126,5 +132,17 @@ void Player::RemoveOldLine()
             _line.erase(_line.begin() + i, _line.begin() + i + 1);
             i = 0;
         }
+    }
+}
+
+//Just a funny feature
+void Player::UpdateColor()
+{
+    Leap::Frame frame = _leapController.frame();
+    Leap::Hand hand = frame.hands()[0];
+    std::cout << hand.sphereRadius() << std::endl;
+    if (hand.sphereRadius() < 40)
+    {
+        _drawColor = sf::Color(rand() % 100 + 155, rand() % 100 + 155, rand() % 100 + 155);
     }
 }
